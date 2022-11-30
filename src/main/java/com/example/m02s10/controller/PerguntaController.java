@@ -1,6 +1,7 @@
 package com.example.m02s10.controller;
 
 import com.example.m02s10.controller.dto.PerguntaRequest;
+import com.example.m02s10.entity.AssuntoEntity;
 import com.example.m02s10.entity.PerguntaEntity;
 import com.example.m02s10.repository.PerguntaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,15 @@ public class PerguntaController {
                 HttpStatus.OK
         );
     }
+//    @GetMapping("/{id_assunto}")
+//    public ResponseEntity<List<PerguntaRequest>> buscarPerguntaPorAssunto(@PathVariable AssuntoEntity id_assunto){
+//        List<PerguntaEntity> listPerguntasPorAssunto = perguntaRepository.findById_assunto(id_assunto);
+//        List<PerguntaRequest> responseListPerguntasPorAssunto = new ArrayList<>();
+//        for (PerguntaEntity pergunta : listPerguntasPorAssunto ){
+//            responseListPerguntasPorAssunto.add(
+//                    new PerguntaRequest(pergunta.getTitulo(), pergunta.getTexto())
+//            );
+//        }
+//        return ResponseEntity.ok(responseListPerguntasPorAssunto);
+//    }
 }

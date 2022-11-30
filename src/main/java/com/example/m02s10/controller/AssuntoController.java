@@ -6,10 +6,7 @@ import com.example.m02s10.repository.AssuntoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +48,16 @@ public class AssuntoController {
                 //dentro dela crio o obj do tipo assuntoRequest apenas buscando o nome, depois coloco o httstatus para informar que deu certo
                 new AssuntoRequest(assuntoEntity.getNome()),
                 HttpStatus.OK
+        );
+    }
+
+    @PostMapping
+    public ResponseEntity<AssuntoRequest> salvaNovoAssunto(@RequestBody AssuntoRequest assuntoRequest){
+        AssuntoEntity assuntoEntity = assuntoRequest.toNovoAssunto();
+        assuntoRepository.save(assuntoEntity);
+        return new ResponseEntity<AssuntoRequest>(
+                new AssuntoRequest(assuntoEntity.getNome()),
+                HttpStatus.CREATED
         );
     }
 

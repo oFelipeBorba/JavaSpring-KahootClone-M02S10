@@ -23,6 +23,6 @@ public class RespostaEntity {
 
     //Em uma entity um FK e um objeto e nao uma coluna, assim usa o JoinCollum e e preciso de um relacionamento.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_resposta")
-    private AssuntoEntity assuntoEntity;
+    @JoinColumn(name = "id_pergunta")
+    private PerguntaEntity perguntaEntity;
 }
