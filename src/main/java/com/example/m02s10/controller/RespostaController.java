@@ -3,6 +3,7 @@ package com.example.m02s10.controller;
 import com.example.m02s10.controller.dto.RespostaRequest;
 import com.example.m02s10.entity.RespostaEntity;
 import com.example.m02s10.repository.RespostaRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,4 +41,11 @@ public class RespostaController {
                 HttpStatus.OK
         );
     }
+    @GetMapping("/porpergunta/{id}")
+    public ResponseEntity buscarRespostasPorPerguntaId(@PathVariable Long id){
+        List<RespostaEntity> respostasPorPergunta = respostaRepository.findRespostasPorId_Pergunta(id);
+        return ResponseEntity.ok(respostasPorPergunta);
+    }
+
+
 }
