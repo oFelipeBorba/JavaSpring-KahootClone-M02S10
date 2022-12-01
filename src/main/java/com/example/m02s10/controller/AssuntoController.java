@@ -65,4 +65,27 @@ public class AssuntoController {
         );
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AssuntoRequest> atualizaAssuntoPorId(@PathVariable Long id,@RequestBody AssuntoRequest request){
+        //guardo o que veio no body do put em assuntoEntity
+        AssuntoEntity assuntoEntity = request.toNovoAssunto();
+        //pego o obj assunto que veio pelo id
+        AssuntoEntity assuntoRecebido = assuntoRepository.findById(id).get();
+        //passo as informações do body para o do id
+        assuntoRecebido.setNome(assuntoEntity.getNome());
+        //retorno com o valor novo e salvo
+        assuntoRepository.save(assuntoEntity);
+        return new ResponseEntity<>(
+                new AssuntoRequest(assuntoEntity.getNome()),
+                HttpStatus.OK
+        );
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AssuntoRequest> deleteAssuntoPorId(@PathVariable Long id){
+        assuntoRepository.deleteById(id);
+        return new ResponseEntity<>(
+                HttpStatus.OK
+        );
+    }
+
 }

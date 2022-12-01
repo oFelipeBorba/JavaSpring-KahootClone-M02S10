@@ -56,4 +56,9 @@ public class PerguntaController {
         );
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletaPerguntaPorId(@PathVariable Long id){
+        perguntaRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

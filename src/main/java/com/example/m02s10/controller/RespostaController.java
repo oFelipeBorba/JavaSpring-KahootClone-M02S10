@@ -54,4 +54,9 @@ public class RespostaController {
         );
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletaRespostaPorId(@PathVariable Long id){
+        respostaRepository.deleteById(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
