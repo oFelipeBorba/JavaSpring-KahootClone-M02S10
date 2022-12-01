@@ -2,7 +2,9 @@ package com.example.m02s10.controller;
 
 import com.example.m02s10.controller.dto.AssuntoRequest;
 import com.example.m02s10.entity.AssuntoEntity;
+import com.example.m02s10.entity.PerguntaEntity;
 import com.example.m02s10.repository.AssuntoRepository;
+import com.example.m02s10.repository.PerguntaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class AssuntoController {
 
     @Autowired
     private AssuntoRepository assuntoRepository;
+    @Autowired
+    PerguntaRepository perguntaRepository;
 
     @GetMapping
     //get retornando um responseentity por ter marcado esse controler como rest

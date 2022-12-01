@@ -42,15 +42,11 @@ public class PerguntaController {
                 HttpStatus.OK
         );
     }
-//    @GetMapping("/{id_assunto}")
-//    public ResponseEntity<List<PerguntaRequest>> buscarPerguntaPorAssunto(@PathVariable AssuntoEntity id_assunto){
-//        List<PerguntaEntity> listPerguntasPorAssunto = perguntaRepository.findById_assunto(id_assunto);
-//        List<PerguntaRequest> responseListPerguntasPorAssunto = new ArrayList<>();
-//        for (PerguntaEntity pergunta : listPerguntasPorAssunto ){
-//            responseListPerguntasPorAssunto.add(
-//                    new PerguntaRequest(pergunta.getTitulo(), pergunta.getTexto())
-//            );
-//        }
-//        return ResponseEntity.ok(responseListPerguntasPorAssunto);
-//    }
+    @GetMapping("/porassunto/{id}")
+    public ResponseEntity retornaPerguntasPorAssunto(@PathVariable Long id){
+        List<PerguntaEntity> perguntaEntityList =
+                perguntaRepository.findPerguntaEntitiesByAssuntoEntity_Id(id);
+        return ResponseEntity.ok(perguntaEntityList);
+    }
+
 }

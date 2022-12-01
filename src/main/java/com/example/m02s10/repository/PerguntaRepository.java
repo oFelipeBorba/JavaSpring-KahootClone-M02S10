@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PerguntaRepository extends JpaRepository<PerguntaEntity,Long> {
 
-//    List<PerguntaEntity> findById_assunto(AssuntoEntity id_assunto);
+    public List<PerguntaEntity> findPerguntaEntitiesByAssuntoEntity_Id(Long id);
 }
