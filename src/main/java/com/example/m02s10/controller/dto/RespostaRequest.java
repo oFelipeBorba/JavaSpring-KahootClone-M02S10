@@ -1,5 +1,6 @@
 package com.example.m02s10.controller.dto;
 
+import com.example.m02s10.entity.RespostaEntity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,5 +14,11 @@ public class RespostaRequest {
 
     @NotBlank
     private String texto;
+
+    public RespostaEntity toNovaResposta(){
+        RespostaEntity novaResposta = new RespostaEntity();
+        novaResposta.setTexto(texto);
+        return novaResposta;
+    }
 
 }

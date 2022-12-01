@@ -7,10 +7,7 @@ import com.example.m02s10.repository.PerguntaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +44,16 @@ public class PerguntaController {
         List<PerguntaEntity> perguntaEntityList =
                 perguntaRepository.findPerguntaEntitiesByAssuntoEntity_Id(id);
         return ResponseEntity.ok(perguntaEntityList);
+    }
+
+    @PostMapping
+    public ResponseEntity<PerguntaRequest> salvaNovaPergunta(@RequestBody PerguntaRequest perguntaRequest){
+        PerguntaEntity perguntaEntity = perguntaRequest.toNovaPergunta();
+        perguntaRepository.save(perguntaEntity);
+        return new ResponseEntity<>(
+                new PerguntaRequest(perguntaRequest.getTitulo(),perguntaRequest.getTexto()),
+                HttpStatus.CREATED
+        );
     }
 
 }
