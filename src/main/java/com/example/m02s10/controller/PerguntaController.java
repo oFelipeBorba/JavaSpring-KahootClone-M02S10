@@ -1,8 +1,10 @@
 package com.example.m02s10.controller;
 
 import com.example.m02s10.controller.dto.PerguntaRequest;
+import com.example.m02s10.controller.dto.RespostaRequest;
 import com.example.m02s10.entity.AssuntoEntity;
 import com.example.m02s10.entity.PerguntaEntity;
+import com.example.m02s10.entity.RespostaEntity;
 import com.example.m02s10.repository.PerguntaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,6 +55,17 @@ public class PerguntaController {
         return new ResponseEntity<>(
                 new PerguntaRequest(perguntaRequest.getTitulo(),perguntaRequest.getTexto()),
                 HttpStatus.CREATED
+        );
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<PerguntaRequest> atualizaPerguntaPorId(@PathVariable Long id, @RequestBody PerguntaRequest request){
+        PerguntaEntity perguntaEntity = perguntaRepository.findById(id).get();
+        perguntaEntity.setTexto(request.getTexto());
+        perguntaEntity.setTitulo(request.getTitulo());
+        perguntaRepository.save(perguntaEntity);
+        return new ResponseEntity<>(
+                new PerguntaRequest(perguntaEntity.getTexto(), perguntaEntity.getTitulo()),
+                HttpStatus.OK
         );
     }
 

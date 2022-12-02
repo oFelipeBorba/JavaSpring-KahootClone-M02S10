@@ -25,4 +25,7 @@ public class RespostaEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pergunta")
     private PerguntaEntity perguntaEntity;
+
+    public RespostaEntity(String texto, PerguntaEntity perguntaEntity) {
+    }
 }

@@ -15,6 +15,13 @@ public class RespostaRequest {
     @NotBlank
     private String texto;
 
+    @NotBlank
+    private Long id_pergunta;
+
+    public RespostaRequest(String texto) {
+    }
+
+
     public RespostaEntity toNovaResposta(){
         RespostaEntity novaResposta = new RespostaEntity();
         novaResposta.setTexto(texto);
