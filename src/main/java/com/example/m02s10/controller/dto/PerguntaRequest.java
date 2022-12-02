@@ -18,6 +18,8 @@ public class PerguntaRequest {
     private String titulo;
     @NotBlank
     private String texto;
+    @NotBlank
+    private Long id_assunto;
 
     public PerguntaEntity toNovaPergunta(){
         PerguntaEntity novaPergunta = new PerguntaEntity();
