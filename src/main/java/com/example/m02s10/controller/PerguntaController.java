@@ -1,16 +1,18 @@
 package com.example.m02s10.controller;
 
 import com.example.m02s10.controller.dto.PerguntaRequest;
-import com.example.m02s10.controller.dto.RespostaRequest;
 import com.example.m02s10.entity.AssuntoEntity;
 import com.example.m02s10.entity.PerguntaEntity;
-import com.example.m02s10.entity.RespostaEntity;
+import com.example.m02s10.exception.BadRequestException;
 import com.example.m02s10.exception.NotFoundException;
 import com.example.m02s10.repository.AssuntoRepository;
 import com.example.m02s10.repository.PerguntaRepository;
+import com.example.m02s10.service.PerguntaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class PerguntaController {
     private PerguntaRepository perguntaRepository;
     @Autowired
     private AssuntoRepository assuntoRepository;
+    @Autowired
+    private PerguntaService perguntaService;
 
     @GetMapping
     public ResponseEntity<List<PerguntaRequest>> buscarTodasPerguntas(){
@@ -39,16 +43,27 @@ public class PerguntaController {
         }}
         return ResponseEntity.ok(perguntaResponseList);
     }
-
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PerguntaRequest> buscarPerguntaPorId(@PathVariable Long id){
+//        PerguntaEntity perguntaDoId = perguntaRepository.findById(id)
+//                .orElseThrow(()->new NotFoundException("Não foi possível obter o objeto a partir do id:"+id));
+//        return new ResponseEntity<>(
+//               new PerguntaRequest(perguntaDoId.getTitulo(), perguntaDoId.getTexto(),perguntaDoId.getAssuntoEntity().getId()),
+//                HttpStatus.OK
+//        );
+//    }
+    //Utilizando a classe PerguntaService para realizar a busca pelo id
     @GetMapping("/{id}")
-    public ResponseEntity<PerguntaRequest> buscarPerguntaPorId(@PathVariable Long id){
-        PerguntaEntity perguntaDoId = perguntaRepository.findById(id)
-                .orElseThrow(()->new NotFoundException("Não foi possível obter o objeto a partir do id:"+id));
+    public ResponseEntity<PerguntaRequest> encontraPorId(@PathVariable Long id){
+        PerguntaEntity pergunta = perguntaService.encontraPorId(id);
         return new ResponseEntity<>(
-               new PerguntaRequest(perguntaDoId.getTitulo(), perguntaDoId.getTexto(),perguntaDoId.getAssuntoEntity().getId()),
+                new PerguntaRequest(pergunta.getTitulo(), pergunta.getTexto(), pergunta.getAssuntoEntity().getId()),
                 HttpStatus.OK
         );
     }
+
+
     @GetMapping("/porassunto/{id}")
     public ResponseEntity retornaPerguntasPorAssunto(@PathVariable Long id){
         List<PerguntaEntity> perguntaEntityList =
@@ -57,7 +72,8 @@ public class PerguntaController {
     }
 
     @PostMapping
-    public ResponseEntity<PerguntaRequest> salvaNovaPergunta(@RequestBody PerguntaRequest perguntaRequest){
+    public ResponseEntity<PerguntaRequest> salvaNovaPergunta(@Valid @RequestBody PerguntaRequest perguntaRequest){
+
         PerguntaEntity perguntaEntity = new PerguntaEntity();
         AssuntoEntity assuntoEntity = assuntoRepository.findById(perguntaRequest.getId_assunto())
                 .orElseThrow(()->new NotFoundException("Não foi possível obter o id_assunto"));

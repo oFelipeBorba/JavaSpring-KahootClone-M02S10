@@ -3,6 +3,7 @@ package com.example.m02s10.controller.dto;
 import com.example.m02s10.entity.AssuntoEntity;
 import com.example.m02s10.entity.PerguntaEntity;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PerguntaRequest {
 
-    @NotBlank
+    @NotNull
     private String titulo;
-    @NotBlank
+    @NotNull
     private String texto;
-    @NotBlank
+    @NotNull
     private Long id_assunto;
 
     public PerguntaEntity toNovaPergunta(){
